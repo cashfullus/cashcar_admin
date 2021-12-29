@@ -187,7 +187,6 @@ const AdListPage = ({ history }: RouteComponentProps) => {
   const onActionButtonClick = useCallback(() => history.push(CREATE_AD_URL), [history]);
   const onFilterSubmit = useCallback(
     (data: any) => {
-      console.log(data);
       history.push({ pathname: routes.adList, search: `?page=1` });
       getADList({ page: 1, count: pageSize, ...data });
     },

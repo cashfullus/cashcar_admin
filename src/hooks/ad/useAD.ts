@@ -14,7 +14,7 @@ const useAD = () => {
   const itemCount = useSelector((state: RootState) => state.ad.item_count);
   const loading = useSelector((state: RootState) => state.loading.getADList);
   const getADList = useCallback(
-    (payload: GetADListPayload) => dispatch(getADListAsync.request({ ...payload, ...filterDataFormatter(filter) })),
+    (payload: GetADListPayload) => dispatch(getADListAsync.request({ ...filterDataFormatter(filter), ...payload })),
     [dispatch, filter],
   );
   const toggleAD = useCallback((adId: number | string) => dispatch(toggleADAction(+adId)), [dispatch]);
