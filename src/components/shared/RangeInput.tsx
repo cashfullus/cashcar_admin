@@ -38,7 +38,19 @@ const RangeInput: React.FC<RangeInputProps> = ({
       <Input
         containerStyle={{ backgroundColor, padding: '0.625rem 1rem' }}
         placeholder={type === 'number' ? minPlaceholder : ''}
-        register={register(firstName, { required })}
+        register={register(firstName, {
+          required,
+          setValueAs: value => {
+            if (value === '') {
+              if (type === 'date') {
+                return '2020-01-01 00:00:00';
+              } else {
+                return 0;
+              }
+            }
+            return value;
+          },
+        })}
         style={{ textTransform: 'uppercase' }}
         type={type}
       />
@@ -46,7 +58,18 @@ const RangeInput: React.FC<RangeInputProps> = ({
       <Input
         containerStyle={{ backgroundColor, padding: '0.625rem 1rem' }}
         placeholder={type === 'number' ? maxPlaceholder : ''}
-        register={register(secondName, { required })}
+        register={register(secondName, {
+          required,
+          setValueAs: value => {
+            if (value === '') {
+              if (type === 'date') {
+                return '2070-12-31 23:59:59';
+              }
+              return 120;
+            }
+            return value;
+          },
+        })}
         style={{ textTransform: 'uppercase' }}
         type={type}
       />

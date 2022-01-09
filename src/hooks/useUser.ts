@@ -14,7 +14,9 @@ const useUser = () => {
   const itemCount = useSelector((state: RootState) => state.users.item_count);
   const loading = useSelector((state: RootState) => state.loading.getUserList);
   const getUserList = useCallback(
-    (payload: GetUserListPayload) => dispatch(getUserListAsync.request({ ...payload, ...filterDataFormatter(filter) })),
+    (payload: GetUserListPayload) => {
+      dispatch(getUserListAsync.request({ ...filterDataFormatter(filter), ...payload }));
+    },
     [dispatch, filter],
   );
   const toggleUser = useCallback((userId: number | string) => dispatch(toggleUserAction(+userId)), [dispatch]);
