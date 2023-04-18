@@ -65,7 +65,7 @@ const RangeInput: React.FC<RangeInputProps> = ({
               if (type === 'date') {
                 return '2070-12-31 23:59:59';
               }
-              return 120;
+              return 10000000;
             }
             return value;
           },

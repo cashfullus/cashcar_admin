@@ -98,7 +98,7 @@ const PointOverviewPage = ({ history }: RouteComponentProps) => {
         onDowloadButtonClick={onDownloadButtonClick}
         onActionButtonClick={onActionButtonClick}
       />
-      <Filter filterItems={filterItems} options={options} target="pointOverview" onSubmit={data => console.log(data)} />
+      <Filter filterItems={filterItems} options={options} target="pointOverview" onSubmit={getPointList} />
       <List
         onCheckboxClick={data => togglePoint(data.id)}
         selected={selected}
