@@ -102,11 +102,12 @@ const AdListFormPage = ({ location: { state }, history }: RouteComponentProps<{}
     based_on_activity_period: item.based_on_activity_period.toString(),
     due_date: item.due_date.toString(),
   }));
-  const { register, setValue, handleSubmit, getValues } = useForm(
+  const { register, setValue, handleSubmit, getValues, formState } = useForm(
     state && {
       defaultValues: state,
     },
   );
+
   const onAreaSelect = (areas: string[]) => {
     setValue(AREA, areas.join('/'));
     closeAreaModal();

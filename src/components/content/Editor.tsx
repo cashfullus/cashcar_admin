@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { forwardRef } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import { ImageUpload } from 'quill-image-upload';
-import { Sources, BoundsStatic, RangeStatic, DeltaStatic, Delta } from 'quill';
+import {  BoundsStatic, RangeStatic, DeltaStatic, Delta } from 'quill';
 import 'react-quill/dist/quill.snow.css';
+import {  UseFormRegisterReturn } from 'react-hook-form';
 
 Quill.register('modules/imageUpload', ImageUpload);
 interface UnprivilegedEditor {
@@ -14,17 +15,18 @@ interface UnprivilegedEditor {
   getContents(index?: number, length?: number): DeltaStatic;
 }
 
-interface EditorProps {
-  value: string;
-  onChange: (content: string, delta: Delta, source: Sources, editor: UnprivilegedEditor) => void;
+interface EditorProps extends React.ComponentProps<typeof ReactQuill> {
+  ref?: any;
 }
 
-const Editor: React.FC<EditorProps> = ({ value, onChange }) => {
+const Editor: React.FC<EditorProps> = forwardRef(({ value, onChange, placeholder, style = { width: '100%', height: '100%' } }, ref: any) => {
   return (
     <ReactQuill
-      value={value}
-      onChange={onChange}
-      style={{ width: '100%', height: '100%' }}
+    ref={ref}
+    value={value}
+    onChange={onChange}
+      style={style}
+      placeholder={placeholder}
       modules={{
         toolbar: {
           container: [
@@ -38,6 +40,6 @@ const Editor: React.FC<EditorProps> = ({ value, onChange }) => {
       }}
     />
   );
-};
+});
 
 export default React.memo(Editor);

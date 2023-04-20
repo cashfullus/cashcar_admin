@@ -8,7 +8,7 @@ function App() {
     const script = document.createElement('script');
     script.async = true;
     script.type = 'text/javascript';
-    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env.REACT_APP_KAKAO_JS_API_KEY}&libraries=clusterer&autoload=false`;
+    script.src = `https://dapi.kakao.com/v2/maps/sdk.js?appkey=${process.env._KAKAO_JS_API_KEY}&libraries=clusterer&autoload=false`;
     document.head.appendChild(script);
   }, []);
   return (

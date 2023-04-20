@@ -66,7 +66,7 @@ const PostNotice: React.FC<PostNoticeProps> = ({ onClose, data }) => {
         </div>
         <div style={{ width: '100%', height: '25rem' }}>
           <div style={{ fontSize: '1.25rem', marginBottom: '0.75rem' }}>내용</div>
-          <Editor value={description} onChange={content => setDescription(content)} />
+          <Editor value={description} onChange={(content) => setDescription(content)} />
         </div>
       </PostNoticeBody>
       <ModalTemplateFooter>
