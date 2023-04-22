@@ -254,7 +254,7 @@ const ADDetail: React.FC<ADDetailProps> = ({ data }) => {
       </div>
       <DetailRow title="광고 설명">
         <ADDescriptionContainer>
-          <div style={{ marginBottom: '1.5rem' }}>{data.description}</div>
+          <div style={{ marginBottom: '1.5rem' }} dangerouslySetInnerHTML={{__html: data.description}}></div>
           <ADImageContainer>
             <Image src={data.thumbnail_image} thumbnail />
             {data.ad_images.map(({ image }, idx) => (
