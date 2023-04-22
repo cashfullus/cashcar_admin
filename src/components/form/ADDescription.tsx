@@ -1,9 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import styled from 'styled-components';
 import { DESCRIPTION } from 'lib/input-name.constants';
 import { BRAND_COLOR_DARK_ORANGE, GRAY_SCALE_100, GRAY_SCALE_400, GRAY_SCALE_BLACK } from 'styles/color.constants';
 import AdDescriptionImage from './AdDescriptionImage';
-import { UseFormRegister, UseFormSetValue, useForm, useWatch } from 'react-hook-form';
+import { UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import Editor from 'components/content/Editor';
 
 interface ADDescriptionProps {

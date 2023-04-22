@@ -1,19 +1,9 @@
 import React, { forwardRef } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import { ImageUpload } from 'quill-image-upload';
-import {  BoundsStatic, RangeStatic, DeltaStatic, Delta } from 'quill';
 import 'react-quill/dist/quill.snow.css';
-import {  UseFormRegisterReturn } from 'react-hook-form';
 
 Quill.register('modules/imageUpload', ImageUpload);
-interface UnprivilegedEditor {
-  getLength(): number;
-  getText(index?: number, length?: number): string;
-  getHTML(): string;
-  getBounds(index: number, length?: number): BoundsStatic;
-  getSelection(focus?: boolean): RangeStatic;
-  getContents(index?: number, length?: number): DeltaStatic;
-}
 
 interface EditorProps extends React.ComponentProps<typeof ReactQuill> {
   ref?: any;
