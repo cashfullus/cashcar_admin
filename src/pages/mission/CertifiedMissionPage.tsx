@@ -114,7 +114,7 @@ const CertifiedMissionPage = ({ history }: RouteComponentProps) => {
         <title>미션 인증 관리</title>
       </Helmet>
       <Spacer />
-      <Filter filterItems={filterItems} options={options} target="certified" onSubmit={data => console.log(data)} />
+      <Filter filterItems={filterItems} options={options} target="certified" onSubmit={getCertifiedList} />
       <List
         loading={loading}
         onCheckboxClick={data => toggleCertified(data.id)}
