@@ -46,7 +46,9 @@ export const PaginationFooter = styled.div`
 const ModalTemplate: React.FC<React.FormHTMLAttributes<HTMLFormElement>> = ({ children, ...attrs }) => {
   return (
     <ModalTemplateContainer onClick={e => e.stopPropagation()} {...attrs}>
+      <div style={{width: '100%', height: '100%', overflowY: 'scroll'}}>
       {children}
+      </div>
     </ModalTemplateContainer>
   );
 };
