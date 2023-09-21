@@ -19,7 +19,7 @@ const usePoint = () => {
   const loading = useSelector((state: RootState) => state.loading.getPointList);
   const getPointList = useCallback((payload: GetPointListPayload) => {
     dispatch(getPointListAsync.request({...payload, ...filterS}));
-  }, [dispatch, filter]);
+  }, [dispatch, filter, filterS]);
   const togglePoint = useCallback((userId: number | string) => dispatch(togglePointAction(+userId)), [dispatch]);
   const selectPointList = useCallback(() => dispatch(selectPointListAction()), [dispatch]);
   const deselectPointList = useCallback(() => dispatch(deselectPointListAction()), [dispatch]);
