@@ -3,6 +3,7 @@ import styled from 'styled-components';
 import { BRAND_COLOR_DARK_GREEN, BRAND_COLOR_DARK_ORANGE, GRAY_SCALE_WHITE } from 'styles/color.constants';
 import { DRAWER_WIDTH, MAIN_TEMPLATE_CHILDREN_PADDING_LEFT, MAIN_TEMPLATE_HORIZONTAL_PADDING } from 'styles/size.constants';
 import Button from './Button';
+import CsvDownloadButton from 'react-json-to-csv';
 
 interface HeaderProps {
   hideDownloadButton?: boolean;
@@ -10,6 +11,7 @@ interface HeaderProps {
   onDowloadButtonClick?: () => void;
   onActionButtonClick?: () => void;
   actionButtonText?: string;
+  data?: any;
 }
 
 const LEFT = parseInt(MAIN_TEMPLATE_HORIZONTAL_PADDING, 10) + parseInt(DRAWER_WIDTH, 10);
@@ -53,15 +55,23 @@ const Header: React.FC<HeaderProps> = ({
   onActionButtonClick,
   onDowloadButtonClick,
   actionButtonText,
+  data,
 }) => {
   return (
     <>
       <HeaderContainer>
         {!hideDownloadButton && (
           <HeaderColumn>
-            <Button onClick={onDowloadButtonClick} buttonColor={BRAND_COLOR_DARK_GREEN}>
-              다운로드
-            </Button>
+            <CsvDownloadButton data={data} style={{width: "100%",
+  height: "100%",
+  outline: "none",
+  border: 'none',
+  color: 'white',
+  padding: "0.5rem",
+  cursor: "pointer",
+  transition: "0.2s",
+  borderRadius: "1.25rem",
+  backgroundColor:BRAND_COLOR_DARK_GREEN}}>다운로드</CsvDownloadButton>
           </HeaderColumn>
         )}
         {!hideActionButton && (

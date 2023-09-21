@@ -202,6 +202,7 @@ const AdListPage = ({ history }: RouteComponentProps) => {
         actionButtonText="광고 추가"
         onDowloadButtonClick={onDownloadButtonClick}
         onActionButtonClick={onActionButtonClick}
+        data={[]}
       />
       <Filter filterItems={filterItems} options={options} target="adList" onSubmit={onFilterSubmit} />
       <List

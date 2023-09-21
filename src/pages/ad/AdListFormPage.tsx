@@ -256,6 +256,7 @@ const AdListFormPage = ({ location: { state }, history }: RouteComponentProps<{}
           logoImage={state?.logo_image}
         />
         <ADDescription
+          getValues={getValues}
           adImages={state?.ad_images.map(({ image }) => image)}
           register={register}
           setValue={setValue}

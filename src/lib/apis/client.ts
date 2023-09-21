@@ -2,7 +2,7 @@ import axios, { AxiosError } from "axios";
 import { CASHCARPLUS_TOKEN } from "lib/constants";
 
 const client = axios.create({
-  baseURL: process.env.REACT_APP_SERVER,
+  baseURL: process.env.NODE_ENV !== 'production' ? process.env.REACT_APP_DEV_SERVER : process.env.REACT_APP_SERVER,
 });
 
 const onResponseError = async (error: AxiosError): Promise<AxiosError> => {

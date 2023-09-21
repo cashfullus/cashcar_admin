@@ -90,7 +90,9 @@ const ADStickerContainer = styled.div`
   justify-content: flex-start;
 `;
 
-const ADDescriptionContainer = styled.div``;
+const ADDescriptionContainer = styled.div`
+  width: 50%;
+`;
 
 const ADImageContainer = styled.div`
   display: grid;
