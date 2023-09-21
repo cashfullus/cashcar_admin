@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { HTML_DESCRIPTION, PLAIN_TEXT_DESCRIPTION } from 'lib/input-name.constants';
-import { BRAND_COLOR_DARK_ORANGE, GRAY_SCALE_100, GRAY_SCALE_300, GRAY_SCALE_400, GRAY_SCALE_BLACK } from 'styles/color.constants';
+import { BRAND_COLOR_DARK_ORANGE, GRAY_SCALE_400, GRAY_SCALE_BLACK } from 'styles/color.constants';
 import AdDescriptionImage from './AdDescriptionImage';
 import { UseFormGetValues, UseFormRegister, UseFormSetValue } from 'react-hook-form';
 import Editor from 'components/content/Editor';
@@ -26,17 +26,17 @@ const ADDescriptionContainer = styled.div`
   color: ${GRAY_SCALE_BLACK};
 `;
 
-const ADDescriptionTextarea = styled.textarea`
-  width: 45rem;
-  height: 20rem;
-  padding: 1rem;
-  border-radius: 0.5rem;
-  margin-bottom: 0.5rem;
-  background-color: ${GRAY_SCALE_100};
-  outline: none;
-  border: none;
-  resize: none;
-`;
+// const ADDescriptionTextarea = styled.textarea`
+//   width: 45rem;
+//   height: 20rem;
+//   padding: 1rem;
+//   border-radius: 0.5rem;
+//   margin-bottom: 0.5rem;
+//   background-color: ${GRAY_SCALE_100};
+//   outline: none;
+//   border: none;
+//   resize: none;
+// `;
 
 const ADDescriptionHelpText = styled.span`
   margin-bottom: 0.5rem;

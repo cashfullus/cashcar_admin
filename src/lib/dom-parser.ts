@@ -26,15 +26,15 @@ function addParagraphIndent(el: HTMLElement) {
   function addListIndent(el: HTMLElement) {
     const listIndentLevel = getIndentLevelFromClassName(el);
     if (compareTagName(el, 'ul')) {
-      return (<HTMLElement[]>Array.from(el.children)).map(c => {
-        const indentLevel = getIndentLevelFromClassName(c) + listIndentLevel;
-        return " ".repeat(indentLevel * 2) + "- " + c.innerText;
+      return Array.from(el.children).map(c => {
+        const indentLevel = getIndentLevelFromClassName((c as HTMLElement)) + listIndentLevel;
+        return " ".repeat(indentLevel * 2) + "- " + (c as HTMLElement).innerText;
       });
     }
     if (compareTagName(el, 'ol')) {
-      return (<HTMLElement[]>Array.from(el.children)).map((c, i) => {
-        const indentLevel = getIndentLevelFromClassName(c) + listIndentLevel;
-        return " ".repeat(indentLevel * 2) + `${i+1}. ` + c.innerText;
+      return Array.from(el.children).map((c, i) => {
+        const indentLevel = getIndentLevelFromClassName((c as HTMLElement)) + listIndentLevel;
+        return " ".repeat(indentLevel * 2) + `${i+1}. ` + (c as HTMLElement).innerText;
       });
     }
     return [];
