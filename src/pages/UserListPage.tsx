@@ -165,7 +165,19 @@ const UserListPage = ({ history }: RouteComponentProps) => {
       <Helmet>
         <title>전체 회원</title>
       </Helmet>
-      <Header hideActionButton onDowloadButtonClick={onDownloadButtonClick} />
+      <Header hideActionButton onDowloadButtonClick={onDownloadButtonClick} downloadFilename='사용자목록'
+        data={downloadTarget.map(item => ({
+          "사용자번호": item.id,
+          "이름": item.name,
+          "별명": item.nickname,
+          "연락처": item.call_number,
+          "이메일": item.email,
+          "생년월일": item.date_of_birth,
+          "주소": item.main_address + " " + item.detail_address,
+          "보유포인트": item.deposit,
+          "보유차량": item.vehicle_information.map(v => `${v.brand}_${v.vehicle_model_name}_${v.car_number}_${v.owner_relationship}`).join(" :: "),
+          "가입일": item.register_time,
+        }))} />
       <Filter filterItems={filterItems} options={options} target="allUsers" onSubmit={onFilterSubmit} />
       <List
         loading={loading}

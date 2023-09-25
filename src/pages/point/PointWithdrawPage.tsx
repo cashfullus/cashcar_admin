@@ -193,7 +193,19 @@ const PointWithdrawPage = () => {
       <Helmet>
         <title>포인트 출금하기</title>
       </Helmet>
-      <Header hideActionButton onDowloadButtonClick={onDownloadButtonClick} />
+      <Header hideActionButton onDowloadButtonClick={onDownloadButtonClick} downloadFilename='포인트출금목록'
+        data={downloadTarget.map(item => ({
+          "출금번호": item.id,
+          "사용자번호": item.user_id,
+          "예금주": item.name,
+          "은행": item.account_bank,
+          "계좌번호": item.account_number,
+          "연락처": item.call_number,
+          "출금포인트": item.amount,
+          "출금신청일": item.register_time,
+          "출금승인일": item.change_done,
+          "상태": withdrawStatusMapper(item.status).label,
+        }))} />
       <Filter filterItems={filterItems} options={options} target="pointWithdraw" onSubmit={data => console.log(data)} />
       <AlignButtonRow buttons={buttons} style={{ marginTop: '1rem' }} />
       <List

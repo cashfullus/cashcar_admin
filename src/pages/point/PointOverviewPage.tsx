@@ -97,6 +97,14 @@ const PointOverviewPage = ({ history }: RouteComponentProps) => {
         actionButtonText="포인트 일괄"
         onDowloadButtonClick={onDownloadButtonClick}
         onActionButtonClick={onActionButtonClick}
+        downloadFilename='사용자포인트목록'
+        data={downloadTarget.map(item => ({
+          "사용자번호": item.id,
+          "이름": item.name,
+          "연락처": item.call_number,
+          "이메일": item.email,
+          "보유포인트": item.deposit,
+        }))}
       />
       <Filter filterItems={filterItems} options={options} target="pointOverview" onSubmit={getPointList} />
       <List

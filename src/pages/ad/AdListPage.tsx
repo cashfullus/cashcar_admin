@@ -202,7 +202,22 @@ const AdListPage = ({ history }: RouteComponentProps) => {
         actionButtonText="광고 추가"
         onDowloadButtonClick={onDownloadButtonClick}
         onActionButtonClick={onActionButtonClick}
-        data={[]}
+        downloadFilename='광고목록'
+        data={downloadTarget.map(item => ({
+          "광고번호": item.id,
+          "광고명": item.title,
+          "광고주": item.owner_name,
+          "상태": adStatusMapper(item.ad_status).label,
+          "모집시작날짜": item.recruit_start_date,
+          "모집마감날짜": item.recruit_end_date,
+          "지급포인트": numberWithCommas(item.total_point),
+          "활동기간": item.activity_period,
+          "모집인원": item.max_recruiting_count,
+          "현재활동인원": item.recruiting_count,
+          "지역": item.area,
+          "최소거리": item.min_distance,
+          "광고설명": item.description,
+        }))}
       />
       <Filter filterItems={filterItems} options={options} target="adList" onSubmit={onFilterSubmit} />
       <List

@@ -218,7 +218,19 @@ const PointDonatePage = () => {
       <Helmet>
         <title>포인트 기부하기</title>
       </Helmet>
-      <Header hideActionButton onDowloadButtonClick={onDownloadButtonClick} />
+      <Header hideActionButton onDowloadButtonClick={onDownloadButtonClick} downloadFilename='포인트기부목록'
+        data={downloadTarget.map(item => ({
+          "기부번호": item.id,
+          "사용자번호": item.user_id,
+          "기부자명": item.name_of_donor,
+          "신청자": item.name,
+          "기부단체": item.donation_organization,
+          "기부금액": item.amount,
+          "연락처": item.call_number,
+          "기부신청일": item.register_time,
+          "기부승인일": item.change_done,
+          "상태": donateStatusMapper(item.status).label,
+        }))} />
       <Filter filterItems={filterItems} options={options} target="pointDonate" onSubmit={data => console.log(data)} />
       <AlignButtonRow buttons={buttons} style={{ marginTop: '1rem' }} />
       <List

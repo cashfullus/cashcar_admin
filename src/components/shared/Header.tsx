@@ -12,6 +12,7 @@ interface HeaderProps {
   onActionButtonClick?: () => void;
   actionButtonText?: string;
   data?: any;
+  downloadFilename?: string;
 }
 
 const LEFT = parseInt(MAIN_TEMPLATE_HORIZONTAL_PADDING, 10) + parseInt(DRAWER_WIDTH, 10);
@@ -56,22 +57,24 @@ const Header: React.FC<HeaderProps> = ({
   onDowloadButtonClick,
   actionButtonText,
   data,
+  downloadFilename
 }) => {
   return (
     <>
       <HeaderContainer>
         {!hideDownloadButton && (
           <HeaderColumn>
-            <CsvDownloadButton data={data} style={{width: "100%",
-  height: "100%",
-  outline: "none",
-  border: 'none',
-  color: 'white',
-  padding: "0.5rem",
-  cursor: "pointer",
-  transition: "0.2s",
-  borderRadius: "1.25rem",
-  backgroundColor:BRAND_COLOR_DARK_GREEN}}>다운로드</CsvDownloadButton>
+            <CsvDownloadButton filename={downloadFilename} data={data} delimiter=',' style={{width: "100%",
+              height: "100%",
+              outline: "none",
+              border: 'none',
+              color: 'white',
+              padding: "0.5rem",
+              cursor: "pointer",
+              transition: "0.2s",
+              borderRadius: "1.25rem",
+              backgroundColor:BRAND_COLOR_DARK_GREEN}}
+            >다운로드</CsvDownloadButton>
           </HeaderColumn>
         )}
         {!hideActionButton && (

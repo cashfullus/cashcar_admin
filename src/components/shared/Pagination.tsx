@@ -10,6 +10,8 @@ export const PAGE_SIZE_10 = 10;
 export const PAGE_SIZE_30 = 30;
 export const PAGE_SIZE_50 = 50;
 export const PAGE_SIZE_100 = 100;
+export const PAGE_SIZE_200 = 200;
+export const PAGE_SIZE_500 = 500;
 
 interface PaginationProps {
   totalPage: number;
@@ -62,6 +64,8 @@ const Pagination: React.FC<PaginationProps> = ({ totalPage, defaultPage, onPageC
               { label: '30개씩 보기', value: PAGE_SIZE_30 },
               { label: '50개씩 보기', value: PAGE_SIZE_50 },
               { label: '100개씩 보기', value: PAGE_SIZE_100 },
+              { label: '200개씩 보기', value: PAGE_SIZE_200 },
+              { label: '500개씩 보기', value: PAGE_SIZE_500 },
             ]}
             defaultValue={PAGE_SIZE_10}
             onChange={onItemCountChange}

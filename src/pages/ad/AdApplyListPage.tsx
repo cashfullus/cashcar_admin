@@ -216,7 +216,18 @@ const AdApplyListPage = ({ history }: RouteComponentProps) => {
       <Helmet>
         <title>광고 신청 회원</title>
       </Helmet>
-      <Header hideActionButton onDowloadButtonClick={onDownloadButtonClick} />
+      <Header hideActionButton onDowloadButtonClick={onDownloadButtonClick} downloadFilename='광고신청사용자목록' data={downloadTarget.map(item => ({
+        "광고신청번호": item.id,
+        "사용자번호": item.user_id,
+        "이름": item.name,
+        "신청광고명": item.title,
+        "연락처": item.call_number,
+        "이메일": item.email,
+        "주소": item.main_address + " " + item.detail_address,
+        "광고신청일": item.register_time,
+        "광고신청승인일": item.accept_status_time,
+        "광고신청상태": adApplyStatusMapper(item.status).label,
+      }))} />
       <Filter filterItems={filterItems} options={options} target="adApply" onSubmit={onFilterSubmit} />
       <AlignButtonRow marginTop="1rem" buttons={buttons} />
       <List
