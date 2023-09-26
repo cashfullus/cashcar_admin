@@ -1,4 +1,4 @@
-import React, { forwardRef, useRef } from 'react';
+import React, { forwardRef, useEffect, useRef } from 'react';
 import ReactQuill, { Quill } from 'react-quill';
 import { ImageUpload } from 'quill-image-upload';
 import 'react-quill/dist/quill.snow.css';
@@ -6,17 +6,30 @@ import "./style.css";
 import { toast } from "react-toastify";
 import { uploadFile } from 'lib/apis/file';
 
-const InlineBlot = Quill.import('blots/block');
+const BlockEmbed = Quill.import('blots/block/embed')
+// const InlineBlot = Quill.import('blots/block');
 const Link = Quill.import('formats/link');
 
-class ImageBlot extends InlineBlot {
+class ImageBlot extends BlockEmbed {
   static create(data: any) {
-    const node = super.create(data);
-    node.setAttribute("src", this.sanitize(data));
-    node.setAttribute("width", "100%");
+    const node = super.create();
+    if (data.url !== undefined) {
+    node.setAttribute('src', this.sanitize(data.url));
+    node.setAttribute('width', '100%');
+    } else {
+      node.setAttribute('src', this.sanitize(data));
+      node.setAttribute('width', '100%');
+    }
     return node;
   }
-  static sanitize(url: string) {
+
+  static value(node: any) {
+    return {
+      url: node.getAttribute('src'),
+    };
+  }
+
+  static sanitize(url: any) {
     return Link.sanitize(url);
   }
 }
@@ -25,7 +38,6 @@ ImageBlot.className = 'image-blot';
 ImageBlot.tagName = 'img';
 
 const QuillVideo = Quill.import('formats/video')
-const BlockEmbed = Quill.import('blots/block/embed')
 
 const VIDEO_ATTRIBUTES = ['height', 'width']
 

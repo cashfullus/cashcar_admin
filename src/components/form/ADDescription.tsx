@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import styled from 'styled-components';
 import { HTML_DESCRIPTION, PLAIN_TEXT_DESCRIPTION } from 'lib/input-name.constants';
 import { BRAND_COLOR_DARK_ORANGE, GRAY_SCALE_400, GRAY_SCALE_BLACK } from 'styles/color.constants';
@@ -54,8 +54,9 @@ const ADDescription: React.FC<ADDescriptionProps> = ({ adImages, register, thumb
       <div style={{ marginBottom: '1rem' }}>광고 설명</div>
       <div style={{ width: '100%', height: '20rem', marginBottom: '6.5rem' }}>
       <Editor value={getValues(HTML_DESCRIPTION)} onChange={(content) => {
-        setValue(PLAIN_TEXT_DESCRIPTION, convertDOMToString(content));
         setValue(HTML_DESCRIPTION, content);
+        setValue(PLAIN_TEXT_DESCRIPTION, convertDOMToString(content));
+        console.log(convertDOMToString(content))
       }} style={{width: '60%', height: '100%'}} />
         </div>
 

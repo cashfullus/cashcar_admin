@@ -29,6 +29,7 @@ export interface AD {
   back_length: number;
   back_width: number;
   description: string;
+  new_description: string;
   gender: Gender;
   max_age_group: number;
   recruiting_count: number;
