@@ -68,7 +68,7 @@ export const checkValidCoordination = (latitude?: number, longitude?: number) =>
 };
 
 const filterValueData = ['age', 'point'];
-const filterDateData = ['register_time', 'recruit_time'];
+const filterDateData = ['register_time', 'recruit_time','createdAt'];
 
 const valueDataFormatter = (data: any) => {
   const copiedData = { ...data };
@@ -99,8 +99,8 @@ const dateDataFormatter = (data: any) => {
       delete copiedData[endKey];
       return;
     }
-    const startValue = `${copiedData[startKey] || '1970-01-01'} 00:00:00`;
-    const endValue = `${copiedData[endKey] || '2070-12-31'} 23:59:59`;
+    const startValue = `${copiedData[startKey]?.split(" ")[0] || '1970-01-01'} ${copiedData[startKey]?.split(' ')[1] || '00:00:00'}`;
+    const endValue = `${copiedData[endKey]?.split(" ")[0] || '2070-12-31'} ${copiedData[endKey]?.split(' ')[1] || '23:59:59'}`;
     const newValue = `${startValue}~${endValue}`;
     copiedData[key] = newValue;
     delete copiedData[startKey];
@@ -110,23 +110,50 @@ const dateDataFormatter = (data: any) => {
   return copiedData;
 };
 
+export const targetNames = [
+  "adList",
+  "adApply",
+  "allUsers",
+  "certified",
+  "driving",
+  "pointOverview",
+  "pointDonate",
+  "pointWithdraw",
+  "push",
+  "marketingUser",
+]
+
 export const filterDataFormatter = (data: any) => {
-  const copiedData = { ...data };
-  const keys = Object.keys(data);
-  keys.forEach(key => {
+  const keys = Object.keys(data).map(key => {
+    const c = key.split("_")[0];
+    if(targetNames.includes(c)){
+      return [key, key.replace(c+"_", '')];
+    }else {
+      return [key, key];
+    }
+  });
+  const copiedData = {...data};
+  keys.forEach(([key, newKey]) => {
+    if(key == newKey) {
+      return;
+    }
+    copiedData[newKey] = copiedData[key];
+    delete copiedData[key];
+  });
+  keys.forEach(([key, newKey]) => {
     if (Array.isArray(data[key])) {
-      if (key === 'gender') {
+      if (key.includes('gender')) {
         const gender = data[key].length === 1 ? +data[key][0] : 0;
-        copiedData[key] = gender;
+        copiedData[newKey] = gender;
         return;
       }
-      copiedData[key] = data[key].join(',');
+      copiedData[newKey] = data[key].join(',');
       return;
     }
   });
-  keys.forEach(key => {
-    if (!copiedData[key] || !copiedData[key].toString()) {
-      delete copiedData[key];
+  keys.forEach(([_, newKey]) => {
+    if (!copiedData[newKey] || !copiedData[newKey].toString()) {
+      delete copiedData[newKey];
     }
   });
   const firstStepData = valueDataFormatter(copiedData);

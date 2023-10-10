@@ -16,6 +16,7 @@ export interface MessageState {
   getADUserList: Message;
   getADApplyList: Message;
   getUserList: Message;
+  getAllUserList: Message;
   getCertifiedList: Message;
   getAllMissionList: Message;
   getDonateList: Message;

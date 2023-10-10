@@ -8,6 +8,8 @@ import Dropdown, { DropdownProps } from '../shared/Dropdown';
 interface SearchInputProps extends Omit<DropdownProps, 'onChange' | 'style' | 'register'> {
   register: UseFormRegister<FieldValues>;
   setValue: UseFormSetValue<FieldValues>;
+  isModal?: boolean;
+  onSubmit?: () => void;
 }
 
 const SearchInputContainer = styled.div`
@@ -44,7 +46,7 @@ const SubmitButton = styled.button`
   outline: none;
 `;
 
-const SearchInput: React.FC<SearchInputProps> = ({ defaultValue, options, register, setValue }) => {
+const SearchInput: React.FC<SearchInputProps> = ({ defaultValue, options, register, setValue, isModal, onSubmit }) => {
   useEffect(() => {
     register('q_type');
     setValue('q_type', defaultValue);
@@ -58,7 +60,11 @@ const SearchInput: React.FC<SearchInputProps> = ({ defaultValue, options, regist
         onChange={data => setValue('q_type', Number.isNaN(+data) ? data : undefined)}
       />
       <Input placeholder="검색어를 입력하세요" {...register('q')} />
-      <SubmitButton type="submit">
+      <SubmitButton type={isModal === true ? 'button' : "submit"} onClick={e => {
+        if (isModal === true && onSubmit) {
+          onSubmit();
+        }
+      }}>
         <SearchSvg />
       </SubmitButton>
     </SearchInputContainer>

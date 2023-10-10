@@ -1,6 +1,5 @@
 import Button from 'components/shared/Button';
-import useModal from 'hooks/useModal';
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import {
   BRAND_COLOR_DARK_ORANGE,
   BRAND_COLOR_LIGHT_ORANGE,
@@ -9,32 +8,47 @@ import {
   GRAY_SCALE_600,
   GRAY_SCALE_BLACK,
 } from 'styles/color.constants';
-import Modal from './Modal';
 import { ReactComponent as PlusSvg } from 'assets/plus-circle.svg';
-import MarketingUserList from './MarketingUserList';
-import useAppPushUser from 'hooks/alarm/useAppPushUser';
 import usePostAppPush from 'hooks/alarm/usePostAppPush';
 import ModalTemplate, { ModalTemplateFooter } from './ModalTemplate';
+import useAppPushUser from 'hooks/alarm/useAppPushUser';
 
 interface PushAlarmProps {
   onClose: () => void;
+  onPlusCircleClick: () => void;
+  pushUserTools: ReturnType<typeof useAppPushUser>;
+  allUserIds: number[];
 }
 
-const PushAlarm: React.FC<PushAlarmProps> = ({ onClose }) => {
-  const [userListModal, openUserListModal, closeUserListModal] = useModal();
+const PushAlarm: React.FC<PushAlarmProps> = ({ onClose, pushUserTools, onPlusCircleClick, allUserIds }) => {
+  const [isAllUser, setIsAllUser] = useState(false);
   const { sendAppPush } = usePostAppPush();
   const [form, setForm] = useState<{ title: string; body: string }>({ title: '', body: '' });
-  const pushUserTools = useAppPushUser();
   const onSendButtonClick = useCallback(() => {
+    if (isAllUser) {
+      const confirm = window.confirm(`정말로 전체 발송하시겠습니까?\n${allUserIds.length}명에게 발송됩니다.`);
+      if (!confirm) {
+        return;
+      }
+      const confirm2 = window.confirm(`전체 발송은 되돌릴 수 없습니다.\n정말로 전체 발송하시겠습니까?`);
+      if (!confirm2) {
+        return;
+      }
+      // console.log({ user_list: allUserIds, ...form });
+      sendAppPush({ user_list: allUserIds, ...form });
+      onClose();
+      return;
+    }
+    setIsAllUser(false);
     const user_list = pushUserTools.appPushUser.map(({ id }) => +id);
+    // console.log({ user_list, ...form });
     sendAppPush({ user_list, ...form });
     onClose();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [pushUserTools.appPushUser, form]);
-  const onPlusCircleClick = () => {
-    pushUserTools.clearPushUserList();
-    openUserListModal();
-  };
+  }, [pushUserTools.appPushUser, form, isAllUser, allUserIds]);
+  useEffect(() => {
+    setIsAllUser(false);
+  }, [pushUserTools.appPushUser])
   return (
     <ModalTemplate>
       <div
@@ -60,7 +74,8 @@ const PushAlarm: React.FC<PushAlarmProps> = ({ onClose }) => {
           }}
         >
           <div>
-            {pushUserTools.appPushUser.length === 0
+            {isAllUser && <span style={{color: BRAND_COLOR_DARK_ORANGE}}>전체 회원</span>}
+            {!isAllUser && (pushUserTools.appPushUser.length === 0
               ? '수신인을 입력해주세요.'
               : pushUserTools.appPushUser.map(user => (
                   <span
@@ -75,9 +90,15 @@ const PushAlarm: React.FC<PushAlarmProps> = ({ onClose }) => {
                   >
                     {user.name}
                   </span>
-                ))}
+                )))}
           </div>
+          <div style={{display: 'flex', alignItems:'center', justifyContent: 'flex-end', gap: '0.5rem'}}>
+          {allUserIds.length !== 0 && <Button buttonColor={BRAND_COLOR_DARK_ORANGE}
+          style={{ width: '5rem', height: '100%', fontSize: '0.75rem', padding: '0.25rem' }}
+          fullRounded
+          onClick={() => setIsAllUser(true)}>전체 발송</Button>}
           <PlusSvg style={{ cursor: 'pointer' }} onClick={onPlusCircleClick} />
+          </div>
         </div>
       </div>
       <div
@@ -142,11 +163,6 @@ const PushAlarm: React.FC<PushAlarmProps> = ({ onClose }) => {
           알림 발송
         </Button>
       </ModalTemplateFooter>
-      {userListModal && (
-        <Modal closeOnClickOutside={false} onClose={closeUserListModal}>
-          <MarketingUserList {...pushUserTools} onClose={closeUserListModal} />
-        </Modal>
-      )}
     </ModalTemplate>
   );
 };

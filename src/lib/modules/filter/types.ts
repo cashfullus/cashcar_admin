@@ -22,4 +22,5 @@ export type FilterState = {
   pointDonate: SelectedFilter;
   pointWithdraw: SelectedFilter;
   push: SelectedFilter;
+  marketingUser: SelectedFilter;
 };

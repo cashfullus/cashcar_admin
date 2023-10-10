@@ -11,6 +11,7 @@ export type LoadingState = {
   getADUserList: boolean;
   getADApplyList: boolean;
   getUserList: boolean;
+  getAllUserList: boolean;
   getCertifiedList: boolean;
   getAllMissionList: boolean;
   getDonateList: boolean;

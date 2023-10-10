@@ -91,6 +91,10 @@ export interface GetUserListResponse {
   data: (Omit<User, 'id'> & { user_id: number })[];
   item_count: number;
 }
+export interface GetAllUserListResponse {
+  data: (Omit<User, 'id'> & { user_id: number })[];
+  item_count: number;
+}
 
 export interface PostADApplyPayload {
   apply_user_list: number[];

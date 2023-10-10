@@ -1,4 +1,4 @@
-import React, { useCallback, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import Pagination from 'components/shared/Pagination';
 import useModal from 'hooks/useModal';
 import usePagination from 'hooks/usePagination';
@@ -23,6 +23,9 @@ import List from 'components/list/List';
 import Download from 'components/modal/Download';
 import useToggle from 'hooks/useToggle';
 import useDownloadModal from 'hooks/useDownloadModal';
+import MarketingUserList from 'components/modal/MarketingUserList';
+import useAppPushUser from 'hooks/alarm/useAppPushUser';
+import alarmAPI from 'lib/apis/alarm';
 
 const PUSH_SEND_NUMBER_COLUMN = '5rem';
 const PUSH_REGISTER_TIME_COLUMN = '5.75rem';
@@ -47,6 +50,8 @@ const filterItems: FilterItem[] = [
 ];
 
 const AlarmPushPage = ({ history }: RouteComponentProps) => {
+  const [allUserLoading, setAllUserLoading] = useState(false);
+  const [allUserIds, setAllUserIds] = useState<number[]>([]);
   const headerItems: ListColumn<ExtendedAppPush>[] = useMemo(
     () => [
       { headerLabel: '발송번호', label: { key: 'id', mapper: pushIdMapper }, column: PUSH_SEND_NUMBER_COLUMN },
@@ -79,6 +84,8 @@ const AlarmPushPage = ({ history }: RouteComponentProps) => {
   useToastify('sendAppPush');
   const { downloadModal, closeDownloadModal, onDownloadButtonClick } = useDownloadModal({ selected });
   const [userListModal, openUserListModal, closeUserListModal] = useModal();
+  const [marketingUserListModal, openMarketingUserListModal, closeMarketingUserListModal] = useModal();
+  const pushUserTools = useAppPushUser();
   const [pushModal, openPushModal, closePushModal] = useModal();
   const [currentAppPushId, setCurrentAppPushId] = useState<number>();
   const { defaultPage, totalPage, pageSize, onPageChange, onPageSizeChange } = usePagination({
@@ -103,6 +110,21 @@ const AlarmPushPage = ({ history }: RouteComponentProps) => {
     openUserListModal();
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
+  const onPlusCircleClick = useCallback(() => {
+    pushUserTools.clearPushUserList();
+    openMarketingUserListModal();
+  }, []);
+  const getAllUserIds = async () => {
+    setAllUserLoading(true);
+    const data = await alarmAPI.getMarketingUserList({page:1, count: 100000});
+    const userIds = data.data.map(u => u.user_id);
+    setAllUserIds(userIds);
+    setAllUserLoading(false);
+    return;
+  }
+  useEffect(() => {
+    getAllUserIds();
+  }, [])
   return (
     <MainTemplate>
       <Helmet>
@@ -136,12 +158,17 @@ const AlarmPushPage = ({ history }: RouteComponentProps) => {
       )}
       {pushModal && (
         <Modal onClose={closePushModal}>
-          <PushAlarm onClose={closePushModal} />
+          <PushAlarm onClose={closePushModal} allUserIds={allUserIds} pushUserTools={pushUserTools} onPlusCircleClick={onPlusCircleClick} />
         </Modal>
       )}
       {userListModal && (
         <Modal onClose={onCloseUserListModal}>
           <AppPushUserList onClose={onCloseUserListModal} appPushId={currentAppPushId} />
+        </Modal>
+      )}
+      {marketingUserListModal && (
+        <Modal closeOnClickOutside={false} onClose={closeMarketingUserListModal}>
+          <MarketingUserList {...pushUserTools} onClose={closeMarketingUserListModal} />
         </Modal>
       )}
       <ToastContainer autoClose={3000} />

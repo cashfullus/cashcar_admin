@@ -46,4 +46,6 @@ export interface ExtendedUser extends User {
 
 export type UserAction = ActionType<typeof actions>;
 
-export interface UserState extends CommonState<ExtendedUser> {}
+export interface UserState extends CommonState<ExtendedUser> {
+  allUserIds: number[];
+}

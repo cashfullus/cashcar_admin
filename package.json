@@ -41,6 +41,7 @@
   },
   "scripts": {
     "dev": "NODE_ENV=development craco start",
+    "local": "NODE_ENV=test craco start",
     "start": "craco start",
     "build": "craco build",
     "test": "craco test",

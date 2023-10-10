@@ -1,9 +1,8 @@
-import React, { useCallback, useMemo } from 'react';
+import React, { useCallback,  useMemo, useState } from 'react';
 import { BRAND_COLOR_DARK_ORANGE } from 'styles/color.constants';
 import { Pagination } from '@material-ui/lab';
 import { genderMapper, getVehicleMapper } from 'lib/mapper';
 import { numberWithHyphen } from 'lib/tools';
-import Filter from 'components/filter/Filter';
 import { FilterItem, Option } from 'types/common';
 import List from 'components/list/List';
 import alarmAPI from 'lib/apis/alarm';
@@ -12,6 +11,8 @@ import { ListColumn } from 'hooks/list/useColumn';
 import ModalTemplate, { PaginationFooter } from './ModalTemplate';
 import useModalItems from 'hooks/useModalItems';
 import AlignButtonRow, { RowButtonProps } from 'components/shared/AlignButtonRow';
+import useFilter from 'hooks/useFilter';
+import ModalFilter from 'components/filter/ModalFilter';
 
 interface MarketingUserData {
   id: number | string;
@@ -25,6 +26,7 @@ interface MarketingUserListProps {
   selectPushUserList: (data: MarketingUserData[]) => void;
   deselectPushUserList: (data: MarketingUserData[]) => void;
   clearPushUserList: () => void;
+  onFilterSubmit?: (data: any) => void;
 }
 
 const USER_NICKNAME_COLUMN = '5rem';
@@ -74,8 +76,8 @@ const filterItems: FilterItem[] = [
     name: 'gender',
     label: '성별',
     filters: [
-      { label: '남자', value: 'male' },
-      { label: '여자', value: 'female' },
+      { label: '남자', value: 1 },
+      { label: '여자', value: 2 },
     ],
   },
   {
@@ -91,7 +93,7 @@ const filterItems: FilterItem[] = [
     ],
   },
   {
-    name: 'createdAt',
+    name: 'register_time',
     label: '가입일',
     date: true,
   },
@@ -138,7 +140,7 @@ const headerItems: ListColumn<ExtendedMarketingUser>[] = [
   },
 ];
 
-const ITEM_COUNT = 8;
+const ITEM_COUNT = 300;
 
 const MarketingUserList: React.FC<MarketingUserListProps> = ({
   onClose,
@@ -148,10 +150,13 @@ const MarketingUserList: React.FC<MarketingUserListProps> = ({
   deselectPushUserList,
   clearPushUserList,
 }) => {
+  const [selectedFilter, setSelectedFilter] = useState<any>({});
   const { loading, items, totalPage, onPageChange } = useModalItems<ExtendedMarketingUser>({
     callPreventer: null,
     discriminator: MARKETING_USER_DISCRIMINATOR,
     api: alarmAPI.getMarketingUserList,
+    extendAPIParams: selectedFilter,
+    item_count: ITEM_COUNT,
   });
   const headerChecked = useMemo(
     () => (appPushUser.length === ITEM_COUNT || appPushUser.length === items.length) && items.length !== 0,
@@ -189,9 +194,13 @@ const MarketingUserList: React.FC<MarketingUserListProps> = ({
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
+  const onFilterSubmit = useCallback((data: any) => {
+    setSelectedFilter(data);
+    return;
+  }, []);
   return (
     <ModalTemplate style={{ height: '50rem' }}>
-      <Filter target="push" options={options} filterItems={filterItems} onSubmit={data => console.log(data)} />
+      <ModalFilter target="marketingUser" options={options} filterItems={filterItems} onSubmit={onFilterSubmit} />
       <List
         loading={loading}
         onCheckboxClick={({ id, name }) => togglePushUser({ id, name })}

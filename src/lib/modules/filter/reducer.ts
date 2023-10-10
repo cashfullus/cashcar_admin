@@ -12,6 +12,7 @@ const initialState: FilterState = {
   pointDonate: {},
   pointWithdraw: {},
   push: {},
+  marketingUser: {},
 };
 
 const filter = createReducer<FilterState, FilterAction>(initialState, {

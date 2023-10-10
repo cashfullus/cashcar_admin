@@ -10,6 +10,7 @@ const initialState: LoadingState = {
   getADUserList: false,
   getADApplyList: false,
   getUserList: false,
+  getAllUserList: false,
   getCertifiedList: false,
   getAllMissionList: false,
   getDonateList: false,
