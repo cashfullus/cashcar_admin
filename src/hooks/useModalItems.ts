@@ -56,7 +56,7 @@ const useModalItems = <Data extends RootData>({
   useEffect(() => {
     loadItems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [extendAPIParams.ad_id, extendAPIParams.id]);
+  }, [extendAPIParams]);
   return { items, loading, totalPage, onPageChange };
 };
 

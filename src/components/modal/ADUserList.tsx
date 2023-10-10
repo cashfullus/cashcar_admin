@@ -49,8 +49,9 @@ const ADUserList: React.FC<ADUserListProps> = ({ onClose, adId }) => {
     ],
     [],
   );
+  const extendAPIParams = useMemo(() => ({ ad_id: adId }), [adId]);
   const { loading, items, totalPage, onPageChange } = useModalItems<ExtendedADUser>({
-    extendAPIParams: { ad_id: adId },
+    extendAPIParams,
     callPreventer: null,
     discriminator: AD_USER_DISCRIMINATOR,
     api: ADAPI.getADUserList,

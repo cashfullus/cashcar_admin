@@ -96,8 +96,9 @@ const AppPushUserList: React.FC<AppPushUserListProps> = ({ onClose, appPushId })
     // eslint-disable-next-line react-hooks/exhaustive-deps
     [],
   );
+  const extendAPIParams = useMemo(() => ({ id: appPushId }), [appPushId]);
   const { loading, items, totalPage, onPageChange } = useModalItems<ExtendedAppPushUser>({
-    extendAPIParams: { id: appPushId },
+    extendAPIParams,
     callPreventer: appPushId,
     discriminator: APP_PUSH_USER_DISCRIMINATOR,
     api: alarmAPI.getAppPushUserList,
