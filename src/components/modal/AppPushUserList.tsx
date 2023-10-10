@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useEffect, useMemo } from 'react';
 import { BRAND_COLOR_DARK_ORANGE } from 'styles/color.constants';
 import { Pagination } from '@material-ui/lab';
 import { appPushStatusMapper, genderMapper, getVehicleMapper } from 'lib/mapper';

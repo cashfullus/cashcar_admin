@@ -31,7 +31,7 @@ const useModalItems = <Data extends RootData>({
   const [items, setItems] = useState<Data[]>([]);
   const [totalPage, setTotalPage] = useState(1);
   const loadItems = useCallback(async (page: number = 1) => {
-    if (callPreventer === undefined) {
+    if (callPreventer === undefined || loading === true) {
       return;
     }
     setLoading(true);
@@ -45,7 +45,7 @@ const useModalItems = <Data extends RootData>({
       setLoading(false);
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [extendAPIParams]);
+  }, [extendAPIParams, callPreventer, loading]);
   const onPageChange = useCallback(
     async (_: any, page: number) => {
       loadItems(page);
@@ -56,7 +56,7 @@ const useModalItems = <Data extends RootData>({
   useEffect(() => {
     loadItems();
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [extendAPIParams]);
+  }, [extendAPIParams.ad_id, extendAPIParams.id]);
   return { items, loading, totalPage, onPageChange };
 };
 
