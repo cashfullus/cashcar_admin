@@ -26,12 +26,13 @@ import AlignButtonRow, { RowButtonProps } from 'components/shared/AlignButtonRow
 
 const WITHDRAW_REGISTER_TIME_COLUMN = '7rem';
 const WITHDRAW_CHANGE_DONE_COLUMN = '7rem';
-const WITHDRAW_BANK_COLUMN = '8rem';
+const WITHDRAW_BANK_COLUMN = '7.5rem';
 const WITHDRAW_ACCOUNT_NUMBER_COLUMN = '10rem';
-const WITHDRAW_NAME_COLUMN = '8rem';
+const WITHDRAW_NAME_COLUMN = '6rem';
 const WITHDRAW_CONTACT_COLUMN = '7.5rem';
-const WITHDRAW_AMOUNT_COLUMN = '10rem';
-const WITHDRAW_STATUS_COLUMN = '5rem';
+const WITHDRAW_AMOUNT_COLUMN = '6rem';
+const WITHDRAW_EMAIL_COLUMN = '1fr';
+const WITHDRAW_STATUS_COLUMN = '4.5rem';
 
 const options: Option[] = [
   { label: '전체', value: 0 },
@@ -99,6 +100,11 @@ const headerItems: ListColumn<ExtendedWithdraw>[] = [
     headerLabel: '본명',
     label: 'name',
     column: WITHDRAW_NAME_COLUMN,
+  },
+  {
+    headerLabel: '이메일',
+    label: { key: 'email' },
+    column: WITHDRAW_EMAIL_COLUMN,
   },
   {
     headerLabel: '연락처',
@@ -200,6 +206,7 @@ const PointWithdrawPage = () => {
           "예금주": item.name,
           "은행": item.account_bank,
           "계좌번호": item.account_number,
+          "이메일": item.email,
           "연락처": item.call_number,
           "출금포인트": item.amount,
           "출금신청일": item.register_time,

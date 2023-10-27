@@ -11,6 +11,7 @@ export interface Withdraw {
   amount: number;
   change_done: string;
   name: string;
+  email: string;
   call_number: string;
   register_time: string;
   status: PointStatus;
