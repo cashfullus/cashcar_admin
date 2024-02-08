@@ -13,7 +13,7 @@ export const AccordionContainer = styled.div`
   display: flex;
   flex-direction: column;
   justify-content: flex-start;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   user-select: none;
 `;
 
@@ -24,7 +24,7 @@ export const AccordionSummary = styled.div`
   cursor: pointer;
   min-height: 3.5rem;
   padding: 0.75rem;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   background-color: ${GRAY_SCALE_150};
   border-radius: 0.5rem;
   transition: all 0.2s ease;
@@ -42,7 +42,7 @@ export const ExpendButton = styled.div`
   display: flex;
   align-items: center;
   justify-content: center;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   transition: transform 0.2s ease;
 `;
 

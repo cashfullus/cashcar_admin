@@ -12,7 +12,7 @@ const NormalListItemContainerBlock = styled.div`
   padding: 0.625rem 0.75rem;
   background-color: ${GRAY_SCALE_WHITE};
   color: ${GRAY_SCALE_BLACK};
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   min-height: 3.5rem;
   border-radius: 0.5rem;
   place-items: center;

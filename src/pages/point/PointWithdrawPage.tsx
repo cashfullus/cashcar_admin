@@ -24,15 +24,17 @@ import useToggle from 'hooks/useToggle';
 import useDownloadModal from 'hooks/useDownloadModal';
 import AlignButtonRow, { RowButtonProps } from 'components/shared/AlignButtonRow';
 
-const WITHDRAW_REGISTER_TIME_COLUMN = '7rem';
-const WITHDRAW_CHANGE_DONE_COLUMN = '7rem';
-const WITHDRAW_BANK_COLUMN = '7.5rem';
-const WITHDRAW_ACCOUNT_NUMBER_COLUMN = '10rem';
-const WITHDRAW_NAME_COLUMN = '6rem';
-const WITHDRAW_CONTACT_COLUMN = '7.5rem';
-const WITHDRAW_AMOUNT_COLUMN = '6rem';
-const WITHDRAW_EMAIL_COLUMN = '1fr';
-const WITHDRAW_STATUS_COLUMN = '4.5rem';
+const WITHDRAW_REGISTER_TIME_COLUMN = '5rem';
+const WITHDRAW_CHANGE_DONE_COLUMN = '5rem';
+const WITHDRAW_BANK_COLUMN = '5.5rem';
+const WITHDRAW_ACCOUNT_NUMBER_COLUMN = '6.5rem';
+const WITHDRAW_NAME_COLUMN = '3rem';
+const WITHDRAW_REGISTRATION_COLUMN = '6rem';
+const WITHDRAW_ADDRESS_COLUMN = '1fr';
+const WITHDRAW_CONTACT_COLUMN = '5.5rem';
+const WITHDRAW_AMOUNT_COLUMN = '4rem';
+const WITHDRAW_EMAIL_COLUMN = '10rem';
+const WITHDRAW_STATUS_COLUMN = '3.5rem';
 
 const options: Option[] = [
   { label: '전체', value: 0 },
@@ -102,9 +104,20 @@ const headerItems: ListColumn<ExtendedWithdraw>[] = [
     column: WITHDRAW_NAME_COLUMN,
   },
   {
+    headerLabel: '주민등록번호',
+    label: 'account_resident_registration',
+    column: WITHDRAW_REGISTRATION_COLUMN,
+  },
+  {
+    headerLabel: '주소',
+    label: 'full_address',
+    column: WITHDRAW_ADDRESS_COLUMN,
+  },
+  {
     headerLabel: '이메일',
     label: { key: 'email' },
     column: WITHDRAW_EMAIL_COLUMN,
+    truncate: true
   },
   {
     headerLabel: '연락처',
@@ -206,6 +219,8 @@ const PointWithdrawPage = () => {
           "예금주": item.name,
           "은행": item.account_bank,
           "계좌번호": item.account_number,
+          '주민등록번호': item.account_resident_registration,
+          "주소": item.full_address,
           "이메일": item.email,
           "연락처": item.call_number,
           "출금포인트": item.amount,

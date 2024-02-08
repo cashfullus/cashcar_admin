@@ -18,7 +18,7 @@ const ListHeaderContainer = styled.div`
   background-color: ${GRAY_SCALE_200};
   border-radius: 0.5rem;
   padding: 0 0.75rem;
-  font-size: 0.875rem;
+  font-size: 0.75rem;
   place-items: center;
 `;
 
