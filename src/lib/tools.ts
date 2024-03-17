@@ -68,11 +68,18 @@ export const checkValidCoordination = (latitude?: number, longitude?: number) =>
 };
 
 const filterValueData = ['age', 'point'];
-const filterDateData = ['register_time', 'recruit_time','createdAt'];
+const filterDateData = ['register_time', 'recruit_time','createdAt', 'register_date', 'done_date'];
 
 const valueDataFormatter = (data: any) => {
   const copiedData = { ...data };
   filterValueData.forEach(key => {
+    if (key === 'point' && copiedData[key] && copiedData[key].includes("~")) {
+      const values = (copiedData[key].split(",") as string[]).map(v => v.split("~")).flat().map(v => +v);
+      const min = Math.min(...values);
+      const max = Math.max(...values);
+      const newValue = `${min}~${max}`;
+      copiedData[key] = newValue;
+    }
     const minKey = `${key}_min_value`;
     const maxKey = `${key}_max_value`;
     if (!copiedData[minKey] && !copiedData[maxKey]) {

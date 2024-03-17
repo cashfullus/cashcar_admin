@@ -23,6 +23,7 @@ import { ListColumn } from 'hooks/list/useColumn';
 import useToggle from 'hooks/useToggle';
 import useDownloadModal from 'hooks/useDownloadModal';
 import AlignButtonRow, { RowButtonProps } from 'components/shared/AlignButtonRow';
+import { RouteComponentProps } from 'react-router';
 
 const WITHDRAW_REGISTER_TIME_COLUMN = '5rem';
 const WITHDRAW_CHANGE_DONE_COLUMN = '5rem';
@@ -48,30 +49,30 @@ const filterItems: FilterItem[] = [
     name: 'status',
     label: '상태',
     filters: [
-      { label: '출금신청', value: 0 },
-      { label: '진행중', value: 1 },
-      { label: '출금완료', value: 2 },
-      { label: '출금취소', value: 3 },
+      { label: '출금신청', value: 'stand_by' },
+      { label: '진행중', value: 'confirm' },
+      { label: '출금완료', value: 'done' },
+      { label: '출금취소', value: 'reject' },
     ],
   },
   {
     name: 'point',
     label: '출금포인트',
     filters: [
-      { label: '10,000 이하', value: '0' },
-      { label: '10,000 - 15,000', value: '15000' },
-      { label: '15,000 - 30,000', value: '30000' },
-      { label: '30,000 ~ 45,000', value: '45000' },
-      { label: '45,000 이상', value: '45001' },
+      { label: '10,000 이하', value: '0~10000' },
+      { label: '10,000 - 15,000', value: '10000~15000' },
+      { label: '15,000 - 30,000', value: '15000~30000' },
+      { label: '30,000 - 45,000', value: '30000~45000' },
+      { label: '45,000 이상', value: '45000' },
     ],
   },
   {
-    name: 'register',
+    name: 'register_date',
     label: '신청일',
     date: true,
   },
   {
-    name: 'withdraw',
+    name: 'done_date',
     label: '출금일',
     date: true,
   },
@@ -138,7 +139,7 @@ const headerItems: ListColumn<ExtendedWithdraw>[] = [
 
 const downloadItems: ListColumn<ExtendedWithdraw>[] = [...headerItems];
 
-const PointWithdrawPage = () => {
+const PointWithdrawPage = ({ history }: RouteComponentProps) => {
   const { items, itemCount, selected, loading, getWithdrawList, toggleWithdraw, selectWithdrawList, deselectWithdrawList } =
     useWithdraw();
   const { postWithdrawList } = usePostWithdraw();
@@ -179,6 +180,14 @@ const PointWithdrawPage = () => {
       return postWithdrawList({ status: 'done', withdrawal_list: selected });
     }
   }, [selected]);
+  const onFilterSubmit = useCallback(
+    (data: any) => {
+      history.push({ pathname: routes.pointWithdraw, search: `?page=1` });
+      getWithdrawList({ page: 1, count: pageSize, ...data });
+    },
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+    [getWithdrawList, pageSize],
+  );
   const buttons: RowButtonProps[] = useMemo(
     () => [
       {
@@ -228,7 +237,7 @@ const PointWithdrawPage = () => {
           "출금승인일": item.change_done,
           "상태": withdrawStatusMapper(item.status).label,
         }))} />
-      <Filter filterItems={filterItems} options={options} target="pointWithdraw" onSubmit={data => console.log(data)} />
+      <Filter filterItems={filterItems} options={options} target="pointWithdraw" onSubmit={onFilterSubmit} />
       <AlignButtonRow buttons={buttons} style={{ marginTop: '1rem' }} />
       <List
         selected={selected}
