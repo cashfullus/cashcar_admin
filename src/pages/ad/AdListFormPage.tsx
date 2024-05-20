@@ -22,6 +22,7 @@ import Modal from 'components/modal/Modal';
 import AreaList from 'components/modal/AreaList';
 import {
   ACTIVITY_PERIOD,
+  AD_SECRET_CODE,
   AREA,
   GENDER,
   MAX_AGE_GROUP,
@@ -37,6 +38,7 @@ import RangeDropdown from 'components/shared/RangeDropdown';
 import ADStickerImage from 'components/form/ADStickerImage';
 import ADDescription from 'components/form/ADDescription';
 import AlignButtonRow, { RowButtonProps } from 'components/shared/AlignButtonRow';
+import CheckBox from 'components/shared/CheckBox';
 
 const FormContainer = styled.form`
   width: 100%;
@@ -153,6 +155,10 @@ const AdListFormPage = ({ location: { state }, history }: RouteComponentProps<{}
           <GridItem title="모집기간">
             <RangeInput name={RECRUIT} width="80%" type="date" register={register} required />
           </GridItem>
+          <div></div>
+          <GridItem title="광고명">
+            <Input register={register(TITLE, { required: true })} placeholder="내용을 입력" containerStyle={{ width: '80%' }} />
+          </GridItem>
           <GridItem title="포인트">
             <Input
               register={register(TOTAL_POINT, {
@@ -163,8 +169,12 @@ const AdListFormPage = ({ location: { state }, history }: RouteComponentProps<{}
               containerStyle={{ width: '40%' }}
             />
           </GridItem>
-          <GridItem title="광고명">
-            <Input register={register(TITLE, { required: true })} placeholder="내용을 입력" containerStyle={{ width: '80%' }} />
+          <GridItem title="신청코드">
+            <Input
+              register={register(AD_SECRET_CODE)}
+              placeholder="없음"
+              containerStyle={{ width: '40%' }}
+            />
           </GridItem>
           <GridItem title="활동기간">
             <Input

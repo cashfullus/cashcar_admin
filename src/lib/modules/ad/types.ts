@@ -45,6 +45,7 @@ export interface AD {
   side_width: number;
   thumbnail_image: string;
   title: string;
+  code: string;
   total_point: number;
   // ad_status
   ad_status: ADStatus;
@@ -76,4 +77,4 @@ export interface ExtendedADUser extends ADUser {
 
 export type ADAction = ActionType<typeof actions>;
 
-export interface ADState extends CommonState<ExtendedAD> {}
+export interface ADState extends CommonState<ExtendedAD> { }

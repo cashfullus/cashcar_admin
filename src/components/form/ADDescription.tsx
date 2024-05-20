@@ -53,12 +53,12 @@ const ADDescription: React.FC<ADDescriptionProps> = ({ adImages, register, thumb
     <ADDescriptionContainer>
       <div style={{ marginBottom: '1rem' }}>광고 설명</div>
       <div style={{ width: '100%', height: '20rem', marginBottom: '6.5rem' }}>
-      <Editor value={getValues(HTML_DESCRIPTION)} onChange={(content) => {
-        setValue(HTML_DESCRIPTION, content);
-        setValue(PLAIN_TEXT_DESCRIPTION, convertDOMToString(content));
-        console.log(convertDOMToString(content))
-      }} style={{width: '60%', height: '100%'}} />
-        </div>
+        <Editor value={getValues(HTML_DESCRIPTION)} onChange={(content) => {
+          setValue(HTML_DESCRIPTION, content);
+          setValue(PLAIN_TEXT_DESCRIPTION, convertDOMToString(content));
+          console.log(convertDOMToString(content))
+        }} style={{ width: '60%', height: '100%' }} />
+      </div>
 
       {/* <ADDescriptionTextarea placeholder="내용을 입력해주세요" {...register(DESCRIPTION, { required: true })} /> */}
       <ADDescriptionHelpText>

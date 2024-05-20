@@ -187,13 +187,13 @@ const ADDetail: React.FC<ADDetailProps> = ({ data }) => {
           <ADInfoItem title="지역" body={data.area} />
           <ADInfoItem title="광고주" body={data.owner_name} />
           <ADInfoItem title="성별" body={genderMapper(data.gender)} />
+          <ADInfoItem title="신청코드" body={data.code === '' ? '없음' : data.code} />
+          <ADInfoItem title="연령" body={data.max_age_group} />
           <ADInfoItem
             title="모집인원"
             body={[data.recruiting_count, data.max_recruiting_count].join(' / ')}
             onIconClick={openModal}
           />
-          <ADInfoItem title="연령" body={data.max_age_group} />
-          <div></div>
           <ADInfoItem title="최소거리" body={data.min_distance} />
         </ADInfoContainer>
       </DetailRow>
@@ -256,7 +256,7 @@ const ADDetail: React.FC<ADDetailProps> = ({ data }) => {
       </div>
       <DetailRow title="광고 설명">
         <ADDescriptionContainer>
-          <div style={{ marginBottom: '1.5rem' }} dangerouslySetInnerHTML={{__html: data.new_description}}></div>
+          <div style={{ marginBottom: '1.5rem' }} dangerouslySetInnerHTML={{ __html: data.new_description }}></div>
           <ADImageContainer>
             <Image src={data.thumbnail_image} thumbnail />
             {data.ad_images.map(({ image }, idx) => (

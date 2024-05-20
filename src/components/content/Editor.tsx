@@ -14,8 +14,8 @@ class ImageBlot extends BlockEmbed {
   static create(data: any) {
     const node = super.create();
     if (data.url !== undefined) {
-    node.setAttribute('src', this.sanitize(data.url));
-    node.setAttribute('width', '100%');
+      node.setAttribute('src', this.sanitize(data.url));
+      node.setAttribute('width', '100%');
     } else {
       node.setAttribute('src', this.sanitize(data));
       node.setAttribute('width', '100%');
@@ -43,7 +43,7 @@ const VIDEO_ATTRIBUTES = ['height', 'width']
 
 // provides a custom div wrapper around the default Video blot
 class Video extends BlockEmbed {
-  static create (value: any) {
+  static create(value: any) {
     const iframeNode = QuillVideo.create(value)
     const node = super.create()
     node.setAttribute("style", "width: 100%; position:relative; padding-bottom: 56.25%;")
@@ -52,7 +52,7 @@ class Video extends BlockEmbed {
     return node
   }
 
-  static formats (domNode: any) {
+  static formats(domNode: any) {
     const iframe = domNode.getElementsByTagName('iframe')[0]
     return VIDEO_ATTRIBUTES.reduce(function (formats: any, attribute: any) {
       if (iframe.hasAttribute(attribute)) {
@@ -62,11 +62,11 @@ class Video extends BlockEmbed {
     }, {})
   }
 
-  static value (domNode: any) {
+  static value(domNode: any) {
     return domNode.getElementsByTagName('iframe')[0].getAttribute('src')
   }
 
-  format (name: any, value: any) {
+  format(name: any, value: any) {
     if (VIDEO_ATTRIBUTES.indexOf(name) > -1) {
       if (value) { this.domNode.setAttribute(name, value) }
       else { this.domNode.removeAttribute(name) }
@@ -94,7 +94,7 @@ const Editor: React.FC<EditorProps> = forwardRef(({ value, onChange, placeholder
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'image/*');
     input.click();
-  
+
     input.addEventListener('change', async () => {
       const file = input.files?.[0];
       const formData = new FormData();
@@ -119,7 +119,7 @@ const Editor: React.FC<EditorProps> = forwardRef(({ value, onChange, placeholder
     input.setAttribute('type', 'file');
     input.setAttribute('accept', 'video/*');
     input.click();
-  
+
     input.addEventListener('change', async () => {
       const file = input.files?.[0];
       const formData = new FormData();
@@ -141,12 +141,12 @@ const Editor: React.FC<EditorProps> = forwardRef(({ value, onChange, placeholder
   };
   return (
     <ReactQuill
-    ref={r => {
-      ref = r;
-      quillRef.current = r;
-    }}
-    value={value}
-    onChange={onChange}
+      ref={r => {
+        ref = r;
+        quillRef.current = r;
+      }}
+      value={value}
+      onChange={onChange}
       style={style}
       placeholder={placeholder}
       modules={{

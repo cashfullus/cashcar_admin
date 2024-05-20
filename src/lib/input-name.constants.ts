@@ -6,6 +6,7 @@ export const MAX_AGE_GROUP = 'max_age_group';
 export const AREA = 'area';
 export const RECRUIT = 'recruit';
 export const TOTAL_POINT = 'total_point';
+export const AD_SECRET_CODE = 'code';
 export const TITLE = 'title';
 export const ACTIVITY_PERIOD = 'activity_period';
 export const OWNER_NAME = 'owner_name';
