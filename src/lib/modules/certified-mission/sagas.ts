@@ -27,7 +27,7 @@ function* getCertifiedListTask({
     );
     yield put(getCertifiedListAsync.success(response));
   } catch (e) {
-    const error = `알 수 없는 오류가 발생하였습니다. [${e}]`;
+    const error = `잠시후 다시 시도하십시오. [${e}]`;
     yield put(
       setMessageAction({
         key: "getCertifiedList",
@@ -58,7 +58,7 @@ function* getAllMissionListTask({
       })
     );
   } catch (e) {
-    const error = `알 수 없는 오류가 발생하였습니다. [${e}]`;
+    const error = `잠시후 다시 시도하십시오. [${e}]`;
     yield put(
       setMessageAction({
         key: "getAllMissionList",
@@ -92,13 +92,12 @@ function* postMissionApplyTask({
       setMessageAction({
         key: "postMissionApply",
         type: "success",
-        message: `정상적으로 ${
-          payload.status === "reject" ? "실패" : "승인"
-        }처리 되었습니다.`,
+        message: `정상적으로 ${payload.status === "reject" ? "실패" : "승인"
+          }처리 되었습니다.`,
       })
     );
   } catch (e) {
-    const error = `알 수 없는 오류가 발생하였습니다. [${e}]`;
+    const error = `잠시후 다시 시도하십시오. [${e}]`;
     yield put(
       setMessageAction({
         key: "postMissionApply",
