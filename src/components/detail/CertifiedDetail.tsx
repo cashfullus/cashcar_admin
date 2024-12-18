@@ -250,7 +250,7 @@ const CertifiedDetail: React.FC<CertifiedDetailProps> = ({ data }) => {
           <Image src={data.side_image} alt="side" />
           <Image src={data.back_image} alt="back" />
           <Image src={data.instrument_panel} alt="instrument_panel" />
-          <Distance distance={data.travelled_distance} latitude={data.latitude} longitude={data.longitude} order={1} />
+          <Distance distance={data.travelled_distance} latitude={data.latitude} longitude={data.longitude} order={2} />
         </GridRow>
         {data.mission_list.length === 0 && (
           <GridRow>
@@ -298,7 +298,7 @@ const CertifiedDetail: React.FC<CertifiedDetailProps> = ({ data }) => {
                     distance={compareMission?.travelled_distance}
                     latitude={compareMission?.latitude}
                     longitude={compareMission?.longitude}
-                    order={2}
+                    order={1}
                   />
                 </>
               )}
